@@ -26,7 +26,7 @@ POSTGRES_ENGINE=django.db.backends.postgresql
 POSTGRES_DB=db_name
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=db_name # при запуске через docker-compose установите значение 'db'
+POSTGRES_HOST=db_name
 POSTGRES_PORT=5432
 ```
 3. Применяем миграции к БД и запускаем сервер:
@@ -34,16 +34,29 @@ POSTGRES_PORT=5432
 $ python manage.py migrate
 $ python manage.py runserver  
 ```
-
+4. Создаем суперпользователя для администрирования БД через Django Admin Panel:
+```commandline
+$ python manage.py createsuperuser  
+```
 Запуск через Docker-Compose:
 ===========
 
-1. Выполняем пункт 2 предыдущего раздела
+1. Выполняем пункт 2 предыдущего раздела (установите POSTGRES_HOST=db, если хотите использовать БД из конейнера)
 2. Собираем и запусксем контейнеры:
 ```commandline
 $ docker-compose up -d --build  
 ```
+3. Создаем суперпользователя для администрирования БД через Django Admin Panel:
+```commandline
+$ docker-compose exec web python manage.py createsuperuser  
+```
+Команды CLI:
+===========
 
+Выгрузка в stdout информации по питомцам в формате JSON:
+```commandline
+$ python manage.py pets [--has-photos] # Опциональный аргумент --has-photos принимает значения true/false
+```
 
 Будущие обновления
 ===========
