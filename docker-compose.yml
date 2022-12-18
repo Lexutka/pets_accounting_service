@@ -5,7 +5,7 @@ services:
     # Берем Dockerfile из каталога app
     build: ./
     # Запускаем тестовый сервер
-    command: python manage.py runserver 0.0.0.0:8000 && python manage.py migrate
+    command: python manage.py runserver 0.0.0.0:8000
     # куда будут помещены данные из каталога app
     volumes:
       - ./:/usr/app/

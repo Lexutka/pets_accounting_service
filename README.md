@@ -20,7 +20,7 @@ $ poetry install
 ```python
 DEBUG=0  # 1 для включения дебаг-режима
 SECRET_KEY=<django_secret_key>
-ALLOWED_HOSTS=localhost 127.0.0.1
+ALLOWED_HOSTS=localhost 127.0.0.1 # разрешенные для подключения хосты через пробел (* для разрешения всем)
 API_KEY=token  # Authorization-токен для доступа к API
 POSTGRES_ENGINE=django.db.backends.postgresql
 POSTGRES_DB=db_name
@@ -40,14 +40,22 @@ $ python manage.py createsuperuser
 ```
 Запуск через Docker-Compose:
 ===========
+Предварительные условия: установленные Docker и Docker-Compose.
 
 1. Выполняем пункт 2 предыдущего раздела (установите POSTGRES_HOST=db, если хотите использовать БД из конейнера)
 2. Собираем и запусксем контейнеры:
 ```commandline
 $ docker-compose up -d --build  
 ```
-3. Создаем суперпользователя для администрирования БД через Django Admin Panel:
+3. Если используем БД из контейенера, нужно подключиться к СУБД и создать базу: 
 ```commandline
+$ docker-compose exec db psql -U <db_username> [-W <db_password>]
+postgres=# CREATE DATABASE <db_name>;
+postgres=# exit
+```
+3. Выполняем миграции БД и создаем суперпользователя для администрирования БД через Django Admin Panel:
+```commandline
+$ docker-compose exec web python manage.py migrate
 $ docker-compose exec web python manage.py createsuperuser  
 ```
 Команды CLI:
