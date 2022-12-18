@@ -65,6 +65,10 @@ $ docker-compose exec web python manage.py createsuperuser
 ```commandline
 $ python manage.py pets [--has-photos] # Опциональный аргумент --has-photos принимает значения true/false
 ```
+Для Docker-Compose:
+```commandline
+$ docker-compose exec web python manage.py pets [--has-photos]
+```
 
 Будущие обновления
 ===========
