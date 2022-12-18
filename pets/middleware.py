@@ -8,7 +8,7 @@ def check_api_token(get_response):
         print(request.path)
         if '/admin' in request.path:
             return get_response(request)
-        token = request.headers.get('Authorization')
+        token = request.headers.get('Authorization', "")
         if 'X-API-KEY' not in token:
             return HttpResponse(content='Invalid token header. No credentials provided', status=401)
         elif token != 'X-API-KEY ' + API_KEY:
